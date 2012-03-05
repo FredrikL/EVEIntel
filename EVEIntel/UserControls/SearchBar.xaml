@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="EVEIntel.UserControls.SearchBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Misc="clr-namespace:EVEIntel.Repository.Misc"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:Controls="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="QueryTypeEnum">
+            <CollectionViewSource.Source>
+                <ObjectDataProvider MethodName="GetNames"
+                                        ObjectType="{x:Type System:Enum}">
+                    <ObjectDataProvider.MethodParameters>
+                        <x:Type TypeName="Misc:QueryTypeEnum" />
+                    </ObjectDataProvider.MethodParameters>
+                </ObjectDataProvider>
+            </CollectionViewSource.Source>
+        </CollectionViewSource>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />               
+        </Grid.RowDefinitions>
+    
+        <TextBlock DockPanel.Dock="Left"
+                   Margin="4 0 0 0"
+                   Grid.Column="0"
+                   VerticalAlignment="Center">
+            EVEIntel
+        </TextBlock>        
+        <TextBlock VerticalAlignment="Center"
+                   Grid.Column="2"
+                   DockPanel.Dock="Right">
+            Type:
+        </TextBlock>
+        <ComboBox x:Name="cbType"
+                  DockPanel.Dock="Right"
+                  Width="80"
+                  Margin="4"     
+                  Grid.Column="3"
+                  DataContext="{StaticResource QueryTypeEnum}"
+                  ItemsSource="{Binding}"/>
+        <TextBlock VerticalAlignment="Center"
+                   Grid.Column="4"
+                   DockPanel.Dock="Right">
+                Query:
+        </TextBlock>
+        <TextBox Width="100"
+                 DockPanel.Dock="Right"
+                 Margin="2"
+                 Grid.Column="5"
+                 x:Name="tbQuery"/>
+        <Button DockPanel.Dock="Right"
+                Margin="4"
+                Grid.Column="6"
+                Click="Button_Click">
+            Search
+        </Button>
+        
+        <TextBlock Grid.Row="1"
+                   Grid.Column="4"
+                   Text="Max Age:" />
+        <Controls:DatePicker FirstDayOfWeek="Monday"
+                             Grid.Row="1"
+                             Grid.Column="5"
+                             Width="100"
+                             x:Name="dpMaxAge" />
+    </Grid>
+</UserControl>

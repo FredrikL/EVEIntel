@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="EVEIntel.Views.CorpAllianceView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:EVEIntel.Controls">
+    <DockPanel>
+        <Grid DockPanel.Dock="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock>
+                Name:
+            </TextBlock>
+            <TextBlock Grid.Row="1"
+                       Margin="0 0 4 0"
+                       Visibility="Hidden">
+                Alliance:
+            </TextBlock>
+            <TextBlock Grid.Column="1"
+                       Text="{Binding Group.Name}" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Controls:SortListView Margin="2"
+                      ItemsSource="{Binding Group.KnownShips}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Ship"
+                                        DisplayMemberBinding="{Binding Name}"
+                                        Width="Auto"/>
+                        <GridViewColumn Header="Times Flown"
+                                        DisplayMemberBinding="{Binding TimesUsed}"
+                                        Width="Auto"/>
+                        <GridViewColumn Header="Last used"
+                                        DisplayMemberBinding="{Binding LastUsed}"
+                                        Width="Auto"/>
+                    </GridView>
+                </ListView.View>
+            </Controls:SortListView>
+            <Controls:SortListView Grid.Column="1"
+                      Margin="2"
+                      ItemsSource="{Binding Group.Seen}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="System" 
+                                        DisplayMemberBinding="{Binding System}"
+                                        Width="Auto" />
+                        <GridViewColumn Header="Times Seen"
+                                        DisplayMemberBinding="{Binding Count}"
+                                        Width="Auto"/>
+                        <GridViewColumn Header="Last Seen"
+                                        DisplayMemberBinding="{Binding Time}"
+                                        Width="Auto"/>
+                    </GridView>
+                </ListView.View>
+            </Controls:SortListView>
+            <Controls:SortListView Grid.Column="2"
+                      Margin="2"
+                      ItemsSource="{Binding Group.KnownMembers}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" 
+                                        DisplayMemberBinding="{Binding Name}"
+                                        Width="Auto" />
+                        <GridViewColumn Header="Corp"
+                                        DisplayMemberBinding="{Binding Corp}"
+                                        Width="Auto"/>
+                        <GridViewColumn Header="Last Seen"
+                                        DisplayMemberBinding="{Binding LastSeen.Time}"
+                                        Width="Auto"/>
+                    </GridView>
+                </ListView.View>
+            </Controls:SortListView>
+            <Button x:Name="btnClose"
+                    Width="75"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Content="Close"
+                    Click="btnClose_Click" />
+        </Grid>
+    </DockPanel>
+</UserControl>
